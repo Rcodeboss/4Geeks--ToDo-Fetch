@@ -17,20 +17,35 @@ export function TodoList() {
 						onKeyUp={event => {
 							if (event.key === "Enter") {
 								//let newList = task.concat([]);
-								let newList = [...task, list]; //adds all elements at the end.
+								let newList = [...list, task]; //adds all elements at the end.
 								setList(newList);
-								setList("");
-								newList.map((todo, i) => {
-									return (
-										<div key={i}>
-											<ul>
-												<li>{todo}</li>
-											</ul>
-										</div>
-									);
-								});
+								setTask("");
 							}
-						}}></input>
+						}}
+					/>
+					<div>
+						<ul>
+							{list.map((item, index) => {
+								return (
+									<li key={index}>
+										{item}
+										<button
+											onClick={() => {
+												let newList = list.filter(
+													(item, i) => {
+														return i !== index;
+													}
+												);
+												setList(newList);
+											}}>
+											x
+										</button>
+									</li>
+								);
+							})}
+						</ul>
+					</div>
+					<div>Whats left: {list.length}</div>
 				</div>
 			</div>
 		</div>
